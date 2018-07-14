@@ -13,25 +13,15 @@ namespace Emulator.Chip8
 
             if (OpcodeBranched8B.Contains(opcodeKey))
             {
-                return (ushort)(opcodeKey & 0x00FF);
+                return (ushort)(opcode & 0xFF);
             }
 
             if (OpcodeBranched4B.Contains(opcodeKey))
             {
-                return (ushort)(opcodeKey & 0x000F);
+                return (ushort)(opcode & 0xF0FF);
             }
 
             return opcodeKey;
-        }
-
-        public static byte GetX(ushort opcode)
-        {
-            return (byte)(opcode >> 8 & 0x0F);
-        }
-
-        public static byte GetY(ushort opcode)
-        {
-            return (byte)(opcode >> 4 & 0x0F);
         }
     }
 }

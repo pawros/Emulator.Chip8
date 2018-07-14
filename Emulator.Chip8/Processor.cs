@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace Emulator.Chip8
 {
@@ -35,14 +36,15 @@ namespace Emulator.Chip8
         private void ExecuteInstruction()
         {
             var opcodeKey = OpcodeHelper.GetOpCodeKey(_chip8.Opcode);
-
+            Console.WriteLine($"{_chip8.Opcode:X4}\t{_chip8.ProgramCounter:X4}");
+            _chip8.ProgramCounter += 2;
             if (_instructions.TryGetValue(opcodeKey, out var action))
             {
                 action();
             }
             else
             {
-                throw new Exception($"Unknown OpCodeKey: {_chip8.Opcode:X4}\tCycle: {_cycleCouter}");
+                throw new Exception($"Unknown Opcode: {_chip8.Opcode:X4}\tCycle: {_cycleCouter}");
             }
         }
 
@@ -58,7 +60,7 @@ namespace Emulator.Chip8
             {
                 var instructionAttribute = (InstructionAttribute)Attribute.GetCustomAttribute(instructionType, typeof(InstructionAttribute));
                 var instructionInstance = (IInstruction)Activator.CreateInstance(instructionType, _chip8);
-                _instructions.Add(instructionAttribute.OpCodeKey, instructionInstance.Execute);
+                _instructions.Add(instructionAttribute.OpcodeKey, instructionInstance.Execute);
             }
         }
     }

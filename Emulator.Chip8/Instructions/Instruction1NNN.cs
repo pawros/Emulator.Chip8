@@ -9,7 +9,7 @@
 
         public override void Execute()
         {
-            base.Execute();
+            Chip8.ProgramCounter = Chip8.NNN;
         }
     }
 }

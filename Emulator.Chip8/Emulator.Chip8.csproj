@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chip8.cs" />
+    <Compile Include="Display.cs" />
     <Compile Include="IInstruction.cs" />
     <Compile Include="Instruction.cs" />
     <Compile Include="Instructions\Instruction00E0.cs" />
@@ -54,6 +55,11 @@
     <Compile Include="Instructions\Instruction4XNN.cs" />
     <Compile Include="InstructionAttribute.cs" />
     <Compile Include="Instructions\Instruction5XY0.cs" />
+    <Compile Include="Instructions\Instruction6XNN.cs" />
+    <Compile Include="Instructions\Instruction7XNN.cs" />
+    <Compile Include="Instructions\InstructionANNN.cs" />
+    <Compile Include="Instructions\InstructionDXYN.cs" />
+    <Compile Include="Instructions\InstructionFX1E.cs" />
     <Compile Include="Machine.cs" />
     <Compile Include="OpcodeHelper.cs" />
     <Compile Include="Processor.cs" />

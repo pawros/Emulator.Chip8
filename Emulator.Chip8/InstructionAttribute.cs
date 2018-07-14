@@ -5,11 +5,11 @@ namespace Emulator.Chip8
     [AttributeUsage(AttributeTargets.Class)]
     public class InstructionAttribute : Attribute
     {
-        public InstructionAttribute(ushort opCodeKey)
+        public InstructionAttribute(ushort opcodeKey)
         {
-            this.OpCodeKey = opCodeKey;
+            this.OpcodeKey = opcodeKey;
         }
 
-        public virtual ushort OpCodeKey { get; }
+        public virtual ushort OpcodeKey { get; }
     }
 }
