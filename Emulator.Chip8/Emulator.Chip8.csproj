@@ -57,8 +57,15 @@
     <Compile Include="Instructions\Instruction5XY0.cs" />
     <Compile Include="Instructions\Instruction6XNN.cs" />
     <Compile Include="Instructions\Instruction7XNN.cs" />
+    <Compile Include="Instructions\Instruction8XY6.cs" />
+    <Compile Include="Instructions\Instruction8XY0.cs" />
+    <Compile Include="Instructions\Instruction8XY2.cs" />
     <Compile Include="Instructions\InstructionANNN.cs" />
     <Compile Include="Instructions\InstructionDXYN.cs" />
+    <Compile Include="Instructions\InstructionEX9E.cs" />
+    <Compile Include="Instructions\InstructionEXA1.cs" />
+    <Compile Include="Instructions\InstructionFX07.cs" />
+    <Compile Include="Instructions\InstructionFX15.cs" />
     <Compile Include="Instructions\InstructionFX1E.cs" />
     <Compile Include="Machine.cs" />
     <Compile Include="OpcodeHelper.cs" />

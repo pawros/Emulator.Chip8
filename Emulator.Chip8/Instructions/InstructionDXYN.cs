@@ -24,19 +24,6 @@ namespace Emulator.Chip8.Instructions
                 : 0);
 
             Chip8.Display.DrawToConsole();
-            //Thread.Sleep(33);
-
-            //var sprite = string.Empty;
-            //for (var i = 0; i < Chip8.N; i++)
-            //{
-            //    //Console.WriteLine(Convert.ToString(Chip8.Memory[Chip8.I + i], 2).PadLeft(8, '0'));
-            //    var line = Convert.ToString(Chip8.Memory[Chip8.I + i], 2).PadLeft(8, '0').Replace("1", "█").Replace("0", " ") + Environment.NewLine;
-            //    sprite += line;
-            //}
-            //File.WriteAllText("C:/Dev/Display.txt", sprite);
-            //Thread.Sleep(1000);
-
-            //Chip8.V[0xF] = 1;
         }
     }
 }

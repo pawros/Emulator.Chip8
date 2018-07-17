@@ -39,6 +39,11 @@ namespace Emulator.Chip8
             return collided;
         }
 
+        public void Clear()
+        {
+            Array.Clear(Screen, 0, Width * Height);
+        }
+
         public void DrawToConsole()
         {
             //Console.Clear();
@@ -56,7 +61,7 @@ namespace Emulator.Chip8
             }
 
             //Console.Write(builder.ToString());
-            File.WriteAllText("C:/Dev/Display.txt", builder.ToString());
+            //File.WriteAllText("C:/Dev/Display.txt", builder.ToString());
         }
     }
 }
