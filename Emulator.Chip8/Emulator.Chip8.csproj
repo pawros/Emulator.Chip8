@@ -46,6 +46,7 @@
     <Compile Include="Display.cs" />
     <Compile Include="IInstruction.cs" />
     <Compile Include="Instruction.cs" />
+    <Compile Include="Instructions\InstructionFx0A.cs" />
     <Compile Include="Instructions\Instruction00E0.cs" />
     <Compile Include="Instructions\Instruction00EE.cs" />
     <Compile Include="Instructions\Instruction0NNN.cs" />
@@ -57,6 +58,9 @@
     <Compile Include="Instructions\Instruction5XY0.cs" />
     <Compile Include="Instructions\Instruction6XNN.cs" />
     <Compile Include="Instructions\Instruction7XNN.cs" />
+    <Compile Include="Instructions\Instruction8XY3.cs" />
+    <Compile Include="Instructions\Instruction8XY4.cs" />
+    <Compile Include="Instructions\Instruction8XY5.cs" />
     <Compile Include="Instructions\Instruction8XY6.cs" />
     <Compile Include="Instructions\Instruction8XY0.cs" />
     <Compile Include="Instructions\Instruction8XY2.cs" />
@@ -66,6 +70,7 @@
     <Compile Include="Instructions\InstructionEXA1.cs" />
     <Compile Include="Instructions\InstructionFX07.cs" />
     <Compile Include="Instructions\InstructionFX15.cs" />
+    <Compile Include="Instructions\InstructionFX18.cs" />
     <Compile Include="Instructions\InstructionFX1E.cs" />
     <Compile Include="Machine.cs" />
     <Compile Include="OpcodeHelper.cs" />

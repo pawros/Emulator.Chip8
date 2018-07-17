@@ -46,7 +46,7 @@ namespace Emulator.Chip8
 
         public void DrawToConsole()
         {
-            //Console.Clear();
+            Console.Clear();
             var builder = new StringBuilder();
 
             for (var y = 0; y < Height; y++)
@@ -60,7 +60,7 @@ namespace Emulator.Chip8
                 builder.Append(Environment.NewLine);
             }
 
-            //Console.Write(builder.ToString());
+            Console.Write(builder.ToString());
             //File.WriteAllText("C:/Dev/Display.txt", builder.ToString());
         }
     }

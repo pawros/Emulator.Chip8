@@ -17,7 +17,7 @@ namespace Emulator.Chip8
         public byte SoundTimer { get; set; }
         public Stack<ushort> Stack { get; }
         public byte[] Keys { get; set; }
-
+        public bool IsHalted { get; set; }
 
         public byte N => (byte)(Opcode & 0xF);
         public byte NN => (byte)(Opcode & 0xFF);

@@ -35,8 +35,9 @@ namespace Emulator.Chip8
 
         private void ExecuteInstruction()
         {
+            System.Threading.Thread.Sleep(1);
             var opcodeKey = OpcodeHelper.GetOpCodeKey(_chip8.Opcode);
-            Console.WriteLine($"{_chip8.Opcode:X4}\t{_chip8.ProgramCounter:X4}");
+            //Console.WriteLine($"{_chip8.Opcode:X4}\t{_chip8.ProgramCounter:X4}");
             _chip8.ProgramCounter += 2;
             if (_instructions.TryGetValue(opcodeKey, out var action))
             {
@@ -45,6 +46,16 @@ namespace Emulator.Chip8
             else
             {
                 throw new Exception($"Unknown Opcode: {_chip8.Opcode:X4}\tCycle: {_cycleCouter}");
+            }
+
+            if (_chip8.DelayTimer > 0)
+            {
+                _chip8.DelayTimer--;
+            }
+
+            if (_chip8.SoundTimer > 0)
+            {
+                _chip8.SoundTimer--;
             }
         }
 
