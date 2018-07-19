@@ -9,7 +9,7 @@
 
         public override void Execute()
         {
-            Chip8.Display.Clear();
+            Chip8.Graphics.Clear();
         }
     }
 }

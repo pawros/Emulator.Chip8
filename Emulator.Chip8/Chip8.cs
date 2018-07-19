@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
+using Emulator.Chip8.Events;
 
 namespace Emulator.Chip8
 {
     public class Chip8
     {
-        public Display Display { get; }
+        public Graphics Graphics { get; }
         public ushort Opcode { get; set; }
         public byte[] Memory { get; }
         public byte[] V { get; }
@@ -34,9 +35,13 @@ namespace Emulator.Chip8
             set => V[Opcode >> 4 & 0xF] = value;
         }
 
+        public Publisher Publisher { get; set; }
+
         public Chip8()
         {
-            Display = new Display();
+            Publisher = new Publisher();
+
+            Graphics = new Graphics();
 
             Opcode = 0;
             Memory = new byte[4096];

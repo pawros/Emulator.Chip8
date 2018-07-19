@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using Emulator.Chip8.Events;
 
 namespace Emulator.Chip8.Instructions
 {
@@ -14,7 +15,7 @@ namespace Emulator.Chip8.Instructions
         public override void Execute()
         {
             //Console.WriteLine($"DRAW({Chip8.Vx:X2}, {Chip8.Vy:X2}, {Chip8.N:X2})");
-            Chip8.V[0xF] = (byte) (Chip8.Display.Draw(
+            Chip8.V[0xF] = (byte) (Chip8.Graphics.Draw(
                 Chip8.Vx,
                 Chip8.Vy,
                 Chip8.N,
@@ -23,7 +24,7 @@ namespace Emulator.Chip8.Instructions
                 ? 1
                 : 0);
 
-            Chip8.Display.DrawToConsole();
+            Chip8.Publisher.Publish(EventArgs.Empty);
         }
     }
 }

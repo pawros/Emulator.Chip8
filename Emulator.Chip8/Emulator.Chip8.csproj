@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chip8.cs" />
-    <Compile Include="Display.cs" />
+    <Compile Include="Events\IPublisher.cs" />
+    <Compile Include="Events\Publisher.cs" />
+    <Compile Include="Graphics.cs" />
     <Compile Include="IInstruction.cs" />
     <Compile Include="Instruction.cs" />
     <Compile Include="Instructions\InstructionFx0A.cs" />

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Emulator.Chip8.Events;
 
 namespace Emulator.Chip8
 {
@@ -8,7 +9,6 @@ namespace Emulator.Chip8
 
         private readonly Processor _processor;
         private readonly Chip8 _chip8;
-        // private Display _display;
 
         public Machine()
         {
@@ -30,6 +30,16 @@ namespace Emulator.Chip8
             {
                 _processor.ExecuteCycle();
             }
+        }
+
+        public byte[] GetVideoMemory()
+        {
+            return _chip8.Graphics.VideoMemory;
+        }
+
+        public Publisher GetPublisher()
+        {
+            return _chip8.Publisher;
         }
     }
 }

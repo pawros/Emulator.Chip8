@@ -105,5 +105,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emulator.Chip8\Emulator.Chip8.csproj">
+      <Project>{73C175FD-10A0-4386-AF34-075BEE521828}</Project>
+      <Name>Emulator.Chip8</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

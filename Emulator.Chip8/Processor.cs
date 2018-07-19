@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 
 namespace Emulator.Chip8
 {
@@ -35,7 +34,7 @@ namespace Emulator.Chip8
 
         private void ExecuteInstruction()
         {
-            System.Threading.Thread.Sleep(1);
+            System.Threading.Thread.Sleep(10);
             var opcodeKey = OpcodeHelper.GetOpCodeKey(_chip8.Opcode);
             //Console.WriteLine($"{_chip8.Opcode:X4}\t{_chip8.ProgramCounter:X4}");
             _chip8.ProgramCounter += 2;
