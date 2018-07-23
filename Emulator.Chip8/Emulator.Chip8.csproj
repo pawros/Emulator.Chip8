@@ -74,6 +74,7 @@
     <Compile Include="Instructions\InstructionFX15.cs" />
     <Compile Include="Instructions\InstructionFX18.cs" />
     <Compile Include="Instructions\InstructionFX1E.cs" />
+    <Compile Include="Instructions\InstructionFX65.cs" />
     <Compile Include="Machine.cs" />
     <Compile Include="OpcodeHelper.cs" />
     <Compile Include="Processor.cs" />

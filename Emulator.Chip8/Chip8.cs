@@ -17,22 +17,26 @@ namespace Emulator.Chip8
         public byte DelayTimer { get; set; }
         public byte SoundTimer { get; set; }
         public Stack<ushort> Stack { get; }
-        public byte[] Keys { get; set; }
+        public bool[] Keys { get; set; }
         public bool IsHalted { get; set; }
 
         public byte N => (byte)(Opcode & 0xF);
         public byte NN => (byte)(Opcode & 0xFF);
         public ushort NNN => (ushort)(Opcode & 0xFFF);
+
+        public byte X => (byte)(Opcode >> 8 & 0xF);
+        public byte Y => (byte)(Opcode >> 4 & 0xF);
+
         public byte Vx
         {
-            get => V[Opcode >> 8 & 0xF];
-            set => V[Opcode >> 8 & 0xF] = value;
+            get => V[X];
+            set => V[X] = value;
         }
 
         public byte Vy
         {
-            get => V[Opcode >> 4 & 0xF];
-            set => V[Opcode >> 4 & 0xF] = value;
+            get => V[Y];
+            set => V[Y] = value;
         }
 
         public Publisher Publisher { get; set; }
@@ -49,7 +53,7 @@ namespace Emulator.Chip8
             I = 0;
             ProgramCounter = 0x200;
             Stack = new Stack<ushort>();
-            Keys = new byte[16];
+            Keys = new bool[16];
         }
 
         public void LoadRom(byte[] rom)

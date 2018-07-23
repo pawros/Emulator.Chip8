@@ -1,14 +1,12 @@
-﻿using System;
+﻿using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
+using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using Emulator.Chip8.Events;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
 namespace Emulator.Chip8.Gui
 {
@@ -17,30 +15,31 @@ namespace Emulator.Chip8.Gui
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int frames;
+        private readonly GLControl _glcontrol;
 
-        private GLControl _glcontrol;
-
-        private DateTime lastMeasureTime;
+        private int _frames;
+        private DateTime _lastMeasureTime;
 
         private const int ScreenSize = 32 * 64;
         private byte[] _screen = new byte[ScreenSize];
         private const int PixelSize = 10;
 
-        private Machine _emulatorMachine = new Machine();
-        private Publisher _publisher;
+        private readonly Machine _emulatorMachine = new Machine();
 
         public MainWindow()
         {
             InitializeComponent();
-            _publisher = _emulatorMachine.GetPublisher();
-            _publisher.EventPublisher += OnVideoMemoryUpdated;
+            var publisher = _emulatorMachine.GetPublisher();
+            publisher.EventPublisher += OnVideoMemoryUpdated;
         
             _glcontrol = new GLControl(new GraphicsMode(32, 64), 2, 0, GraphicsContextFlags.Default);
             _glcontrol.Load += OnLoad;
             _glcontrol.Paint += OnPaint;
             _glcontrol.Dock = DockStyle.Fill;
 
+            _glcontrol.KeyDown += OnKeyDown;
+            _glcontrol.KeyUp += OnKeyUp;
+            
             this.Host.Child = _glcontrol;
 
             var timer = new DispatcherTimer {Interval = TimeSpan.FromMilliseconds(1)};
@@ -68,7 +67,7 @@ namespace Emulator.Chip8.Gui
 
             _glcontrol.SwapBuffers();
 
-            frames++;
+            _frames++;
         }
 
         private void OnVideoMemoryUpdated(object sender, EventArgs e)
@@ -84,11 +83,11 @@ namespace Emulator.Chip8.Gui
 
         private void OnTick(object sender, EventArgs e)
         {
-            if (DateTime.Now.Subtract(lastMeasureTime) > TimeSpan.FromSeconds(1))
+            if (DateTime.Now.Subtract(_lastMeasureTime) > TimeSpan.FromSeconds(1))
             {
-                Title = frames + " fps";
-                frames = 0;
-                lastMeasureTime = DateTime.Now;
+                Title = _frames + " fps";
+                _frames = 0;
+                _lastMeasureTime = DateTime.Now;
             }
 
         }
@@ -121,6 +120,16 @@ namespace Emulator.Chip8.Gui
             GL.Vertex2(x + PixelSize, y + PixelSize);
             GL.Vertex2(x + PixelSize, y);
             GL.End();
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            _emulatorMachine.SetKeyPressed(KeyMapping.Mapping[e.KeyCode], true);
+        }
+
+        private void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            _emulatorMachine.SetKeyPressed(KeyMapping.Mapping[e.KeyCode], false);
         }
     }
 }

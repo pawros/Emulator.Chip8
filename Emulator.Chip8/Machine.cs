@@ -5,7 +5,7 @@ namespace Emulator.Chip8
 {
     public class Machine
     {
-        private const string RomPath = "C:/Dev/SpaceInvaders.ch8";
+        private const string RomPath = "SpaceInvaders.ch8";
 
         private readonly Processor _processor;
         private readonly Chip8 _chip8;
@@ -35,6 +35,11 @@ namespace Emulator.Chip8
         public byte[] GetVideoMemory()
         {
             return _chip8.Graphics.VideoMemory;
+        }
+
+        public void SetKeyPressed(byte index, bool state)
+        {
+            _chip8.Keys[index] = state;
         }
 
         public Publisher GetPublisher()

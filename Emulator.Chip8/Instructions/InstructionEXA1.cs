@@ -9,7 +9,7 @@
 
         public override void Execute()
         {
-            if (Chip8.Keys[Chip8.Vx] != 0)
+            if (!Chip8.Keys[Chip8.Vx])
             {
                 Chip8.ProgramCounter += 2;
             }

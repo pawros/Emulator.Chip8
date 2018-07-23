@@ -9,11 +9,16 @@
 
         public override void Execute()
         {
-            if(Chip8.IsHalted)
+            if (Chip8.IsHalted)
             {
                 for (var key = 0; key < Chip8.Keys.Length; key++)
                 {
-                    
+                    if (Chip8.Keys[key])
+                    {
+                        Chip8.IsHalted = false;
+                        Chip8.Vx = (byte)key;
+                        return;
+                    }
                 }
             }
 
