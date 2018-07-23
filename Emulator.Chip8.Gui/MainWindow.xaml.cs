@@ -60,7 +60,7 @@ namespace Emulator.Chip8.Gui
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            GL.ClearColor(202, 220, 159, 1);
+            GL.ClearColor(0.792f, 0.862f, 0.623f, 1);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             DrawScreen();
@@ -113,7 +113,7 @@ namespace Emulator.Chip8.Gui
             x = x * PixelSize;
             y = y * PixelSize; 
 
-            GL.Color3(15, 56, 15);
+            GL.Color3(0.058, 0.219, 0.058);
             GL.Begin(PrimitiveType.Quads);
             GL.Vertex2(x, y);
             GL.Vertex2(x, y + PixelSize);

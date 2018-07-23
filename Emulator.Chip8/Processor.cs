@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Timers;
 
 namespace Emulator.Chip8
 {
@@ -12,9 +13,14 @@ namespace Emulator.Chip8
 
         private int _cycleCouter;
 
+        private readonly Timer _timer = new Timer(16);
+
         public Processor(Chip8 chip8)
         {
             _chip8 = chip8;
+
+            _timer.Elapsed += UpdateTimers;
+            _timer.Start();
 
             InitializeInstructions();
         }
@@ -34,9 +40,7 @@ namespace Emulator.Chip8
 
         private void ExecuteInstruction()
         {
-            System.Threading.Thread.Sleep(10);
             var opcodeKey = OpcodeHelper.GetOpCodeKey(_chip8.Opcode);
-            //Console.WriteLine($"{_chip8.Opcode:X4}\t{_chip8.ProgramCounter:X4}");
             _chip8.ProgramCounter += 2;
             if (_instructions.TryGetValue(opcodeKey, out var action))
             {
@@ -46,7 +50,10 @@ namespace Emulator.Chip8
             {
                 throw new Exception($"Unknown Opcode: {_chip8.Opcode:X4}\tCycle: {_cycleCouter}");
             }
+        }
 
+        private void UpdateTimers(object sender, ElapsedEventArgs e)
+        {
             if (_chip8.DelayTimer > 0)
             {
                 _chip8.DelayTimer--;
