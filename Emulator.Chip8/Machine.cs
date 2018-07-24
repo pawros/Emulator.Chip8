@@ -5,7 +5,8 @@ namespace Emulator.Chip8
 {
     public class Machine
     {
-        private const string RomPath = "SpaceInvaders.ch8";
+        //private const string RomPath = "SpaceInvaders.ch8";
+        private const string RomPath = "Breakout.ch8";
 
         private readonly Processor _processor;
         private readonly Chip8 _chip8;

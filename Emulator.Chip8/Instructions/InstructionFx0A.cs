@@ -1,4 +1,6 @@
-﻿namespace Emulator.Chip8.Instructions
+﻿using System.Threading;
+
+namespace Emulator.Chip8.Instructions
 {
     [Instruction(0xF00A)]
     public class InstructionFx0A : Instruction
@@ -9,6 +11,7 @@
 
         public override void Execute()
         {
+            Thread.Sleep(16);
             if (Chip8.IsHalted)
             {
                 for (var key = 0; key < Chip8.Keys.Length; key++)

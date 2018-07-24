@@ -5,7 +5,6 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Threading;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
 namespace Emulator.Chip8.Gui
@@ -16,9 +15,6 @@ namespace Emulator.Chip8.Gui
     public partial class MainWindow : Window
     {
         private readonly GLControl _glcontrol;
-
-        private int _frames;
-        private DateTime _lastMeasureTime;
 
         private const int ScreenSize = 32 * 64;
         private byte[] _screen = new byte[ScreenSize];
@@ -31,7 +27,7 @@ namespace Emulator.Chip8.Gui
             InitializeComponent();
             var publisher = _emulatorMachine.GetPublisher();
             publisher.EventPublisher += OnVideoMemoryUpdated;
-        
+
             _glcontrol = new GLControl(new GraphicsMode(32, 64), 2, 0, GraphicsContextFlags.Default);
             _glcontrol.Load += OnLoad;
             _glcontrol.Paint += OnPaint;
@@ -39,12 +35,8 @@ namespace Emulator.Chip8.Gui
 
             _glcontrol.KeyDown += OnKeyDown;
             _glcontrol.KeyUp += OnKeyUp;
-            
-            this.Host.Child = _glcontrol;
 
-            var timer = new DispatcherTimer {Interval = TimeSpan.FromMilliseconds(1)};
-            timer.Tick += OnTick;
-            timer.Start();
+            this.Host.Child = _glcontrol;
 
             var worker = new BackgroundWorker();
             worker.DoWork += RunMachine;
@@ -66,8 +58,6 @@ namespace Emulator.Chip8.Gui
             DrawScreen();
 
             _glcontrol.SwapBuffers();
-
-            _frames++;
         }
 
         private void OnVideoMemoryUpdated(object sender, EventArgs e)
@@ -79,17 +69,6 @@ namespace Emulator.Chip8.Gui
         private void RunMachine(object sender, DoWorkEventArgs e)
         {
             _emulatorMachine.Run();
-        }
-
-        private void OnTick(object sender, EventArgs e)
-        {
-            if (DateTime.Now.Subtract(_lastMeasureTime) > TimeSpan.FromSeconds(1))
-            {
-                Title = _frames + " fps";
-                _frames = 0;
-                _lastMeasureTime = DateTime.Now;
-            }
-
         }
 
         private void DrawScreen()
@@ -111,7 +90,7 @@ namespace Emulator.Chip8.Gui
         private void DrawPixel(float x, float y)
         {
             x = x * PixelSize;
-            y = y * PixelSize; 
+            y = y * PixelSize;
 
             GL.Color3(0.058, 0.219, 0.058);
             GL.Begin(PrimitiveType.Quads);
@@ -123,7 +102,7 @@ namespace Emulator.Chip8.Gui
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
-        {
+        {    
             _emulatorMachine.SetKeyPressed(KeyMapping.Mapping[e.KeyCode], true);
         }
 

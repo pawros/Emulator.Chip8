@@ -48,6 +48,7 @@
     <Compile Include="Graphics.cs" />
     <Compile Include="IInstruction.cs" />
     <Compile Include="Instruction.cs" />
+    <Compile Include="Instructions\InstructionCXNN.cs" />
     <Compile Include="Instructions\InstructionFx0A.cs" />
     <Compile Include="Instructions\Instruction00E0.cs" />
     <Compile Include="Instructions\Instruction00EE.cs" />
