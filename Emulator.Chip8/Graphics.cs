@@ -27,12 +27,15 @@ namespace Emulator.Chip8
                     if ((row & (0x80 >> pixel)) != 0)
                     {
                         var offset = (y + line) * Width + x + pixel;
-                        if (VideoMemory[offset] == 1)
+                        if (offset < VideoMemory.Length)
                         {
-                            collided = true;
-                        }
+                            if (VideoMemory[offset] == 1)
+                            {
+                                collided = true;
+                            }
 
-                        VideoMemory[offset] ^= 1;
+                            VideoMemory[offset] ^= 1;
+                        }
                     }
                 }
             }
