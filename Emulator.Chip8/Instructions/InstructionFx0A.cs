@@ -3,9 +3,9 @@
 namespace Emulator.Chip8.Instructions
 {
     [Instruction(0xF00A)]
-    public class InstructionFx0A : InstructionBase
+    public class InstructionFX0A : InstructionBase
     {
-        public InstructionFx0A(Chip8 chip8) : base(chip8)
+        public InstructionFX0A(Chip8 chip8) : base(chip8)
         {
         }
 

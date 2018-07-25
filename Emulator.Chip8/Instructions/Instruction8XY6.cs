@@ -10,7 +10,7 @@
         public override void Execute()
         {
             Chip8.V[0xF] = (byte) (Chip8.Vx & 0x1);
-            Chip8.Vx >>= 1;
+            Chip8.Vx >>= 0x1;
         }
     }
 }

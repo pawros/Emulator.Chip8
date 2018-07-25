@@ -47,9 +47,14 @@
     <Compile Include="Events\Publisher.cs" />
     <Compile Include="Graphics.cs" />
     <Compile Include="Instructions\IInstruction.cs" />
+    <Compile Include="Instructions\Instruction8XY1.cs" />
+    <Compile Include="Instructions\Instruction8XY7.cs" />
+    <Compile Include="Instructions\Instruction8XYE.cs" />
+    <Compile Include="Instructions\Instruction9XY0.cs" />
     <Compile Include="Instructions\InstructionBase.cs" />
+    <Compile Include="Instructions\InstructionBNNN.cs" />
     <Compile Include="Instructions\InstructionCXNN.cs" />
-    <Compile Include="Instructions\InstructionFx0A.cs" />
+    <Compile Include="Instructions\InstructionFX0A.cs" />
     <Compile Include="Instructions\Instruction00E0.cs" />
     <Compile Include="Instructions\Instruction00EE.cs" />
     <Compile Include="Instructions\Instruction0NNN.cs" />
@@ -75,6 +80,7 @@
     <Compile Include="Instructions\InstructionFX15.cs" />
     <Compile Include="Instructions\InstructionFX18.cs" />
     <Compile Include="Instructions\InstructionFX1E.cs" />
+    <Compile Include="Instructions\InstructionFX29.cs" />
     <Compile Include="Instructions\InstructionFX65.cs" />
     <Compile Include="VirtualMachine.cs" />
     <Compile Include="OpcodeHelper.cs" />

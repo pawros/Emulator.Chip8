@@ -14,7 +14,6 @@ namespace Emulator.Chip8.Instructions
 
         public override void Execute()
         {
-            //Console.WriteLine($"DRAW({Chip8.Vx:X2}, {Chip8.Vy:X2}, {Chip8.N:X2})");
             Chip8.V[0xF] = (byte) (Chip8.Graphics.Draw(
                 Chip8.Vx,
                 Chip8.Vy,

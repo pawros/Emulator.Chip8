@@ -13,7 +13,7 @@ namespace Emulator.Chip8.Instructions
 
         public override void Execute()
         {
-            var randomValue = (byte)_random.Next(0, 256);
+            var randomValue = (byte)_random.Next(0, byte.MaxValue + 1);
             Chip8.Vx = (byte)(randomValue & Chip8.NN);
 
         }
