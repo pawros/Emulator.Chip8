@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Emulator.Chip8
+namespace Emulator.Chip8.Instructions
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class InstructionAttribute : Attribute

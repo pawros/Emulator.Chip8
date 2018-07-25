@@ -1,7 +1,7 @@
 ﻿namespace Emulator.Chip8.Instructions
 {
     [Instruction(0x8005)]
-    public class Instruction8XY5 : Instruction
+    public class Instruction8XY5 : InstructionBase
     {
         public Instruction8XY5(Chip8 chip8) : base(chip8)
         {

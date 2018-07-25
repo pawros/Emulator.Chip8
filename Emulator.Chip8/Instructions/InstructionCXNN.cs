@@ -3,7 +3,7 @@
 namespace Emulator.Chip8.Instructions
 {
     [Instruction(0xC000)]
-    public class InstructionCXNN : Instruction
+    public class InstructionCXNN : InstructionBase
     {
         private readonly Random _random = new Random();
 

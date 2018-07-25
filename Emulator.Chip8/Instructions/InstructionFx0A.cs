@@ -3,7 +3,7 @@
 namespace Emulator.Chip8.Instructions
 {
     [Instruction(0xF00A)]
-    public class InstructionFx0A : Instruction
+    public class InstructionFx0A : InstructionBase
     {
         public InstructionFx0A(Chip8 chip8) : base(chip8)
         {
@@ -26,7 +26,7 @@ namespace Emulator.Chip8.Instructions
             }
 
             Chip8.IsHalted = true;
-            Chip8.ProgramCounter -= 2;
+            Chip8.DecrementProgramCounter();
         }
     }
 }

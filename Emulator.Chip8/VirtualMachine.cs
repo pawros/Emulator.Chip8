@@ -3,24 +3,24 @@ using Emulator.Chip8.Events;
 
 namespace Emulator.Chip8
 {
-    public class Machine
+    public class VirtualMachine
     {
         //private const string RomPath = "SpaceInvaders.ch8";
         private const string RomPath = "Breakout.ch8";
 
-        private readonly Processor _processor;
-        private readonly Chip8 _chip8;
+        private readonly Processor processor;
+        private readonly Chip8 chip8;
 
-        public Machine()
+        public VirtualMachine()
         {
-            _chip8 = new Chip8();
-            _processor = new Processor(_chip8);
+            chip8 = new Chip8();
+            processor = new Processor(chip8);
         }
 
         public void InsertRom(string path)
         {
             var rom = File.ReadAllBytes(path);
-            _chip8.LoadRom(rom);
+            chip8.LoadRom(rom);
         }
 
         public void Run()
@@ -29,23 +29,23 @@ namespace Emulator.Chip8
 
             while (true)
             {
-                _processor.ExecuteCycle();
+                processor.ExecuteCycle();
             }
         }
 
         public byte[] GetVideoMemory()
         {
-            return _chip8.Graphics.VideoMemory;
+            return chip8.Graphics.VideoMemory;
         }
 
         public void SetKeyPressed(byte index, bool state)
         {
-            _chip8.Keys[index] = state;
+            chip8.Keys[index] = state;
         }
 
         public Publisher GetPublisher()
         {
-            return _chip8.Publisher;
+            return chip8.Publisher;
         }
     }
 }

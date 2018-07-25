@@ -12,7 +12,7 @@ namespace Emulator.Chip8
     {
         static void Main(string[] args)
         {
-            var machine = new Machine();
+            var machine = new VirtualMachine();
             machine.Run();
         }
     }

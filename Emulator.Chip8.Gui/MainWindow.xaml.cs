@@ -14,29 +14,30 @@ namespace Emulator.Chip8.Gui
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly GLControl _glcontrol;
-
         private const int ScreenSize = 32 * 64;
-        private byte[] _screen = new byte[ScreenSize];
         private const int PixelSize = 10;
 
-        private readonly Machine _emulatorMachine = new Machine();
+        private readonly GLControl glcontrol;
+
+        private byte[] videoMemory = new byte[ScreenSize];
+
+        private readonly VirtualMachine virtualMachine = new VirtualMachine();
 
         public MainWindow()
         {
             InitializeComponent();
-            var publisher = _emulatorMachine.GetPublisher();
+            var publisher = virtualMachine.GetPublisher();
             publisher.EventPublisher += OnVideoMemoryUpdated;
 
-            _glcontrol = new GLControl(new GraphicsMode(32, 64), 2, 0, GraphicsContextFlags.Default);
-            _glcontrol.Load += OnLoad;
-            _glcontrol.Paint += OnPaint;
-            _glcontrol.Dock = DockStyle.Fill;
+            glcontrol = new GLControl(new GraphicsMode(32, 64), 2, 0, GraphicsContextFlags.Default);
+            glcontrol.Load += OnLoad;
+            glcontrol.Paint += OnPaint;
+            glcontrol.Dock = DockStyle.Fill;
 
-            _glcontrol.KeyDown += OnKeyDown;
-            _glcontrol.KeyUp += OnKeyUp;
+            glcontrol.KeyDown += OnKeyDown;
+            glcontrol.KeyUp += OnKeyUp;
 
-            this.Host.Child = _glcontrol;
+            Host.Child = glcontrol;
 
             var worker = new BackgroundWorker();
             worker.DoWork += RunMachine;
@@ -45,7 +46,7 @@ namespace Emulator.Chip8.Gui
 
         private void OnLoad(object sender, EventArgs e)
         {
-            _glcontrol.MakeCurrent();
+            glcontrol.MakeCurrent();
             GL.Viewport(0, 0, 640, 320);
             GL.Ortho(0, 640, 320, 0, 1, -1);
         }
@@ -57,18 +58,18 @@ namespace Emulator.Chip8.Gui
 
             DrawScreen();
 
-            _glcontrol.SwapBuffers();
+            glcontrol.SwapBuffers();
         }
 
         private void OnVideoMemoryUpdated(object sender, EventArgs e)
         {
-            _screen = _emulatorMachine.GetVideoMemory();
-            _glcontrol.Invalidate();
+            videoMemory = virtualMachine.GetVideoMemory();
+            glcontrol.Invalidate();
         }
 
         private void RunMachine(object sender, DoWorkEventArgs e)
         {
-            _emulatorMachine.Run();
+            virtualMachine.Run();
         }
 
         private void DrawScreen()
@@ -78,7 +79,7 @@ namespace Emulator.Chip8.Gui
                 for (var y = 0; y < 32; y++)
                 {
                     var offset = y * 64 + x;
-                    var pixel = _screen[offset];
+                    var pixel = videoMemory[offset];
                     if (pixel != 0)
                     {
                         DrawPixel(x, y);
@@ -103,12 +104,12 @@ namespace Emulator.Chip8.Gui
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {    
-            _emulatorMachine.SetKeyPressed(KeyMapping.Mapping[e.KeyCode], true);
+            virtualMachine.SetKeyPressed(KeyMapping.Mapping[e.KeyCode], true);
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
-            _emulatorMachine.SetKeyPressed(KeyMapping.Mapping[e.KeyCode], false);
+            virtualMachine.SetKeyPressed(KeyMapping.Mapping[e.KeyCode], false);
         }
     }
 }
