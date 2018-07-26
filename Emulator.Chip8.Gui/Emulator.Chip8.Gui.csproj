@@ -74,6 +74,8 @@
     <Compile Include="Display\DisplayControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Display\DisplayParameters.cs" />
+    <Compile Include="Display\Renderer.cs" />
     <Compile Include="EmulatorViewModel.cs" />
     <Compile Include="KeyMapping.cs" />
     <Compile Include="MainWindow.xaml.cs">

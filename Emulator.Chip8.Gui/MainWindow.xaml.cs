@@ -16,8 +16,9 @@ namespace Emulator.Chip8.Gui
         {
             InitializeComponent();
 
+            var displayParameters = new DisplayParameters();
             virtualMachine = new VirtualMachine();
-            var displayControl = new DisplayControl(virtualMachine, new GraphicsMode(32, 64), 2, 0, GraphicsContextFlags.Default);
+            var displayControl = new DisplayControl(virtualMachine, displayParameters, new GraphicsMode(displayParameters.Height, displayParameters.Width), 2, 0, GraphicsContextFlags.Default);
             Host.Child = displayControl;
 
             var worker = new BackgroundWorker();
