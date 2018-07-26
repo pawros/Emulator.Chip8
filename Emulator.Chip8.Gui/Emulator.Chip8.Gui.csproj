@@ -71,6 +71,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Display\DisplayControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="EmulatorViewModel.cs" />
     <Compile Include="KeyMapping.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -112,5 +115,6 @@
       <Name>Emulator.Chip8</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

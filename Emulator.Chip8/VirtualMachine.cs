@@ -5,11 +5,13 @@ namespace Emulator.Chip8
 {
     public class VirtualMachine
     {
-        //private const string RomPath = "SpaceInvaders.ch8";
-        private const string RomPath = "Breakout.ch8";
+        private const string RomPath = "SpaceInvaders.ch8";
+        //private const string RomPath = "Breakout.ch8";
 
         private readonly Processor processor;
         private readonly Chip8 chip8;
+
+        public Publisher Publisher => chip8.Publisher;
 
         public VirtualMachine()
         {
@@ -41,11 +43,6 @@ namespace Emulator.Chip8
         public void SetKeyPressed(byte index, bool state)
         {
             chip8.Keys[index] = state;
-        }
-
-        public Publisher GetPublisher()
-        {
-            return chip8.Publisher;
         }
     }
 }
