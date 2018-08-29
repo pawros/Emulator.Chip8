@@ -7,7 +7,7 @@ namespace Emulator.Chip8.Instructions
     {
         public InstructionAttribute(ushort opcodeKey)
         {
-            this.OpcodeKey = opcodeKey;
+            OpcodeKey = opcodeKey;
         }
 
         public virtual ushort OpcodeKey { get; }

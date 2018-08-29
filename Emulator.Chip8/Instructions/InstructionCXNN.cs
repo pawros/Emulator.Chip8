@@ -7,14 +7,14 @@ namespace Emulator.Chip8.Instructions
     {
         private readonly Random _random = new Random();
 
-        public InstructionCXNN(Chip8 chip8) : base(chip8)
+        public InstructionCXNN(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
             var randomValue = (byte)_random.Next(0, byte.MaxValue + 1);
-            Chip8.Vx = (byte)(randomValue & Chip8.NN);
+            Vx = (byte)(randomValue & NN);
 
         }
     }

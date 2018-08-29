@@ -9,16 +9,19 @@ namespace Emulator.Chip8
         private const int Width = 64;
         private const int Height = 32;
 
-        public byte[] VideoMemory { get; }
+        private readonly byte[] videoMemoryArray = new byte[Width * Height];
 
-        public Graphics()
+        public byte this[int i]
         {
-            VideoMemory = new byte[Width * Height];
+            get => videoMemoryArray[i];
+            set => videoMemoryArray[i] = value;
         }
 
-        public bool Draw(byte x, byte y, byte n, ushort i, byte[] memory)
+        public byte IsCollision { get; private set; }
+
+        public void Draw(byte x, byte y, byte n, ushort i, byte[] memory)
         {
-            var collided = false;
+            IsCollision = 0x0;
             for (var line = 0; line < n; line++)
             {
                 var row = memory[i + line];
@@ -27,24 +30,48 @@ namespace Emulator.Chip8
                     if ((row & (0x80 >> pixel)) != 0)
                     {
                         var offset = (y + line) * Width + x + pixel;
-                        if (offset < VideoMemory.Length)
+                        if (offset < videoMemoryArray.Length)
                         {
-                            if (VideoMemory[offset] == 1)
+                            if (videoMemoryArray[offset] == 1)
                             {
-                                collided = true;
+                                IsCollision = 0x1;
                             }
 
-                            VideoMemory[offset] ^= 1;
+                            videoMemoryArray[offset] ^= 1;
                         }
                     }
                 }
             }
-            return collided;
+        }
+
+        public void Draw(byte x, byte y, byte[] drawData)
+        {
+            IsCollision = 0x0;
+
+            for (var line = 0; line < drawData.Length; line++)
+            {
+                for (var pixel = 0; pixel < 8; pixel++)
+                {
+                    if ((drawData[line] & (0x80 >> pixel)) != 0)
+                    {
+                        var offset = (y + line) * Width + x + pixel;
+                        if (offset < videoMemoryArray.Length)
+                        {
+                            if (videoMemoryArray[offset] == 1)
+                            {
+                                IsCollision = 0x1;
+                            }
+
+                            videoMemoryArray[offset] = 1;
+                        }
+                    }
+                }
+            }
         }
 
         public void Clear()
         {
-            Array.Clear(VideoMemory, 0, Width * Height);
+            Array.Clear(videoMemoryArray, 0, Width * Height);
         }
     }
 }

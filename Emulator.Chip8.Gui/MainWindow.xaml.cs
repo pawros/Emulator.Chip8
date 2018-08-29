@@ -1,6 +1,8 @@
 ﻿using Emulator.Chip8.Gui.Display;
 using OpenTK.Graphics;
 using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Emulator.Chip8.Gui
@@ -21,9 +23,12 @@ namespace Emulator.Chip8.Gui
             var displayControl = new DisplayControl(virtualMachine, displayParameters, new GraphicsMode(displayParameters.Height, displayParameters.Width), 2, 0, GraphicsContextFlags.Default);
             Host.Child = displayControl;
 
-            var worker = new BackgroundWorker();
-            worker.DoWork += RunMachine;
-            worker.RunWorkerAsync();
+            virtualMachine.Run();
+            
+
+            //var worker = new BackgroundWorker();
+            //worker.DoWork += RunMachine;
+            //worker.RunWorkerAsync();
         }
 
         private void RunMachine(object sender, DoWorkEventArgs e)

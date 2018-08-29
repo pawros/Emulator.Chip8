@@ -3,15 +3,15 @@
     [Instruction(0x9000)]
     public class Instruction9XY0 : InstructionBase
     {
-        public Instruction9XY0(Chip8 chip8) : base(chip8)
+        public Instruction9XY0(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            if (Chip8.Vx != Chip8.Vy)
+            if (Vx != Vy)
             {
-                Chip8.IncrementProgramCounter();
+                Interpreter.ProgramCounter += 2;
             }
         }
     }

@@ -3,13 +3,13 @@
     [Instruction(0x1000)]
     public class Instruction1NNN : InstructionBase
     {
-        public Instruction1NNN(Chip8 chip8) : base(chip8)
+        public Instruction1NNN(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.ProgramCounter = Chip8.NNN;
+            Interpreter.ProgramCounter = NNN;
         }
     }
 }

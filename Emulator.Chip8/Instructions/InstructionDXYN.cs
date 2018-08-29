@@ -8,22 +8,20 @@ namespace Emulator.Chip8.Instructions
     [Instruction(0xD000)]
     public class InstructionDXYN : InstructionBase
     {
-        public InstructionDXYN(Chip8 chip8) : base(chip8)
+        public InstructionDXYN(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.V[0xF] = (byte) (Chip8.Graphics.Draw(
-                Chip8.Vx,
-                Chip8.Vy,
-                Chip8.N,
-                Chip8.I,
-                Chip8.Memory)
-                ? 1
-                : 0);
+            var drawData = Interpreter.Memory.GetDrawData(N, Interpreter.Register.I);
+            Interpreter.Graphics.Draw(Vx, Vy, drawData);
+            Vf = Interpreter.Graphics.IsCollision;
 
-            Chip8.Publisher.Publish(EventArgs.Empty);
+
+            //Chip8.Publisher.Publish(EventArgs.Empty);
         }
+
+
     }
 }

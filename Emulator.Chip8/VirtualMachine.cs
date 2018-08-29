@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Emulator.Chip8.Events;
 
 namespace Emulator.Chip8
@@ -13,10 +15,20 @@ namespace Emulator.Chip8
 
         public Publisher Publisher => chip8.Publisher;
 
+        private Task task;
+
         public VirtualMachine()
         {
             chip8 = new Chip8();
             processor = new Processor(chip8);
+            task = new Task(() =>
+            {
+                while (true)
+                {
+                    processor.ExecuteCycle();
+                }
+
+            });
         }
 
         public void InsertRom(string path)
@@ -28,11 +40,12 @@ namespace Emulator.Chip8
         public void Run()
         {
             InsertRom(RomPath);
+            task.Start();
 
-            while (true)
-            {
-                processor.ExecuteCycle();
-            }
+            //while (true)
+            //{
+            //    processor.ExecuteCycle();
+            //}
         }
 
         public byte[] GetVideoMemory()
