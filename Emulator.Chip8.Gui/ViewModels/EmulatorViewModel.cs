@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Emulator.Chip8.Gui.Display;
+using System;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Emulator.Chip8.Gui.Display;
+using OpenTK;
+using OpenTK.Graphics;
 
 namespace Emulator.Chip8.Gui.ViewModels
 {
@@ -13,12 +14,19 @@ namespace Emulator.Chip8.Gui.ViewModels
         private Task interpreterTask;
         private Renderer renderer;
 
-        public EmulatorDisplayControl EmulatorDisplayControl { get; private set; }
+        public GLControl EmulatorDisplayControl { get; private set; }
+
+        public string Opcode
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
 
         public EmulatorViewModel()
         {
             InitializeDisplayControl();
 
+            renderer = new Renderer(new DisplayParameters());
             interpreter = new Interpreter();
             interpreter.LoadRom("SpaceInvaders.ch8");
             interpreterTask = Task.Factory.StartNew(RunEmulator);
@@ -26,19 +34,23 @@ namespace Emulator.Chip8.Gui.ViewModels
 
         private void InitializeDisplayControl()
         {
-            EmulatorDisplayControl = new EmulatorDisplayControl();
+            EmulatorDisplayControl = new GLControl(new GraphicsMode(32, 64), 2, 0, GraphicsContextFlags.Default);
+            EmulatorDisplayControl.Dock = DockStyle.Fill;
             EmulatorDisplayControl.Load += OnLoad;
             EmulatorDisplayControl.Paint += OnPaint;
         }
 
         private void OnLoad(object sender, EventArgs args)
         {
-            Debug.WriteLine("EmulatorDisplayControl loaded");
+            EmulatorDisplayControl.MakeCurrent();
+            renderer.SetupScene();
         }
 
         private void OnPaint(object sender, PaintEventArgs args)
         {
-            Debug.WriteLine("EmulatorDisplayControl painted");
+            renderer.ClearScene();
+            renderer.RenderScene(interpreter.Graphics.GetVideoMemory());
+            EmulatorDisplayControl.SwapBuffers();
         }
 
         private async void RunEmulator()
@@ -51,8 +63,15 @@ namespace Emulator.Chip8.Gui.ViewModels
                     interpreter.DrawFlag = false;
                     EmulatorDisplayControl.Invalidate();
                 }
-                await Task.Delay(100);
+
+                Update();
+                await Task.Delay(0);
             }
+        }
+
+        private void Update()
+        {
+            Opcode = $"{interpreter.Opcode:X4}";
         }
     }
 }

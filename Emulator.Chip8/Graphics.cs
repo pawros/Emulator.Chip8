@@ -19,29 +19,9 @@ namespace Emulator.Chip8
 
         public byte IsCollision { get; private set; }
 
-        public void Draw(byte x, byte y, byte n, ushort i, byte[] memory)
+        public byte[] GetVideoMemory()
         {
-            IsCollision = 0x0;
-            for (var line = 0; line < n; line++)
-            {
-                var row = memory[i + line];
-                for (var pixel = 0; pixel < 8; pixel++)
-                {
-                    if ((row & (0x80 >> pixel)) != 0)
-                    {
-                        var offset = (y + line) * Width + x + pixel;
-                        if (offset < videoMemoryArray.Length)
-                        {
-                            if (videoMemoryArray[offset] == 1)
-                            {
-                                IsCollision = 0x1;
-                            }
-
-                            videoMemoryArray[offset] ^= 1;
-                        }
-                    }
-                }
-            }
+            return videoMemoryArray;
         }
 
         public void Draw(byte x, byte y, byte[] drawData)
@@ -62,7 +42,7 @@ namespace Emulator.Chip8
                                 IsCollision = 0x1;
                             }
 
-                            videoMemoryArray[offset] = 1;
+                            videoMemoryArray[offset] ^= 1;
                         }
                     }
                 }

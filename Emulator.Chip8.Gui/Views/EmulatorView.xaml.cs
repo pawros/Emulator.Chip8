@@ -20,19 +20,14 @@ namespace Emulator.Chip8.Gui.Views
     /// </summary>
     public partial class EmulatorView : Window
     {
-        private EmulatorViewModel emulatorViewModel;
-
         public EmulatorView()
         {
             InitializeComponent();
             
-            emulatorViewModel = new EmulatorViewModel();
+            var emulatorViewModel = new EmulatorViewModel();
             this.DataContext = emulatorViewModel;
 
             Host.Child = emulatorViewModel.EmulatorDisplayControl;
-
-
-
         }
     }
 }
