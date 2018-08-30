@@ -44,23 +44,6 @@ namespace Emulator.Chip8
             InitializeTimer();
         }
 
-        public void Run()
-        {
-            while (true)
-            {    
-                ExecuteCycle();
-            }
-        }
-
-        public async void Run(int delay)
-        {
-            while (true)
-            {
-                ExecuteCycle();
-                await Task.Delay(delay);
-            }
-        }
-
         public void ExecuteCycle()
         {
             FetchOpcode();
@@ -78,8 +61,6 @@ namespace Emulator.Chip8
         {
 
         }
-
-
 
         private void FetchOpcode()
         {
