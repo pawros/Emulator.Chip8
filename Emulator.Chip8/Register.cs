@@ -3,7 +3,7 @@
     public class Register
     {
         public ushort I { get; set; }
-        public byte[] V { get; set; }
+        public byte[] V { get; }
 
         public Register()
         {

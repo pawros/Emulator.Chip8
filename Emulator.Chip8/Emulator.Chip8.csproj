@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{73C175FD-10A0-4386-AF34-075BEE521828}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Emulator.Chip8</RootNamespace>
     <AssemblyName>Emulator.Chip8</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,9 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chip8.cs" />
-    <Compile Include="Events\IPublisher.cs" />
-    <Compile Include="Events\Publisher.cs" />
     <Compile Include="Graphics.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Instructions\IInstruction.cs" />
@@ -86,10 +86,7 @@
     <Compile Include="Interpreter.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Register.cs" />
-    <Compile Include="VirtualMachine.cs" />
     <Compile Include="OpcodeHelper.cs" />
-    <Compile Include="Processor.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

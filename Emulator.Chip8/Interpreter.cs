@@ -1,8 +1,10 @@
 ﻿using Emulator.Chip8.Instructions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace Emulator.Chip8
@@ -25,6 +27,7 @@ namespace Emulator.Chip8
         public byte SoundTimer { get; set; }
 
         public bool IsHalted { get; set; }
+        public bool DrawFlag { get; set; }
 
         public Interpreter()
         {
@@ -41,18 +44,49 @@ namespace Emulator.Chip8
             InitializeTimer();
         }
 
+        public void Run()
+        {
+            while (true)
+            {    
+                ExecuteCycle();
+            }
+        }
+
+        public async void Run(int delay)
+        {
+            while (true)
+            {
+                ExecuteCycle();
+                await Task.Delay(delay);
+            }
+        }
+
+        public void ExecuteCycle()
+        {
+            FetchOpcode();
+            ProgramCounter += 2;
+            ExecuteInstruction();
+        }
+
+        public void LoadRom(string path)
+        {
+            var rom = File.ReadAllBytes(path);
+            Memory.LoadRom(rom);
+        }
+
+        public void Reset()
+        {
+
+        }
+
+
+
         private void FetchOpcode()
         {
             Opcode = (ushort)(Memory[ProgramCounter] << 8 | Memory[ProgramCounter + 1]);
         }
 
-        public void ExecuteCycle()
-        {
-            ProgramCounter += 2;
-            ExecuteInstruction();
-        }
-
-        public void ExecuteInstruction()
+        private void ExecuteInstruction()
         {
             var opcodeKey = OpcodeHelper.GetOpCodeKey(Opcode);
             if (instructions.TryGetValue(opcodeKey, out var executeInstruction))
@@ -64,7 +98,7 @@ namespace Emulator.Chip8
                 throw new Exception($"Unknown opcode: {Opcode:X4}");
             }
         }
-        
+
         private void InitializeInstructions()
         {
             instructions = new Dictionary<ushort, Action>();

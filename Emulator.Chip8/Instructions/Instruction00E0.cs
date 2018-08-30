@@ -10,6 +10,7 @@
         public override void Execute()
         {
             Interpreter.Graphics.Clear();
+            Interpreter.DrawFlag = true;
         }
     }
 }

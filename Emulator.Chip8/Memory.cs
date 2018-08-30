@@ -20,6 +20,11 @@ namespace Emulator.Chip8
             return drawData;
         }
 
+        public void LoadRom(byte[] rom)
+        {
+            rom.CopyTo(memoryArray, 0x200);
+        }
+
         public void Clear()
         {
             Array.Clear(memoryArray, 0, MemorySize);
