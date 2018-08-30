@@ -3,13 +3,13 @@
     [Instruction(0xF01E)]
     public class InstructionFX1E : InstructionBase
     {
-        public InstructionFX1E(Chip8 chip8) : base(chip8)
+        public InstructionFX1E(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.I += Chip8.Vx;
+            Interpreter.Register.I += Vx;
         }
     }
 }

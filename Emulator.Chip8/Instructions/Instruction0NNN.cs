@@ -3,7 +3,7 @@
     //[Instruction(0x0000)]
     public class Instruction0NNN : InstructionBase
     {
-        public Instruction0NNN(Chip8 chip8) : base(chip8)
+        public Instruction0NNN(Interpreter interpreter) : base(interpreter)
         {
         }
 

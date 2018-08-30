@@ -3,13 +3,13 @@
     [Instruction(0xF015)]
     public class InstructionFX15 : InstructionBase
     {
-        public InstructionFX15(Chip8 chip8) : base(chip8)
+        public InstructionFX15(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.DelayTimer = Chip8.Vx;
+            Interpreter.DelayTimer = Vx;
         }
     }
 }

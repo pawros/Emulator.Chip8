@@ -3,13 +3,13 @@
     [Instruction(0x7000)]
     public class Instruction7XNN : InstructionBase
     {
-        public Instruction7XNN(Chip8 chip8) : base(chip8)
+        public Instruction7XNN(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.Vx += Chip8.NN;
+            Vx += NN;
         }
     }
 }

@@ -3,13 +3,13 @@
     [Instruction(0xA000)]
     public class InstructionANNN : InstructionBase
     {
-        public InstructionANNN(Chip8 chip8) : base(chip8)
+        public InstructionANNN(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.I = Chip8.NNN;
+            Interpreter.Register.I = NNN;
         }
     }
 }

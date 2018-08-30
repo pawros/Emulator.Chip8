@@ -3,13 +3,13 @@
     [Instruction(0x8000)]
     public class Instruction8XY0 : InstructionBase
     {
-        public Instruction8XY0(Chip8 chip8) : base(chip8)
+        public Instruction8XY0(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.Vx = Chip8.Vy;
+            Vx = Vy;
         }
     }
 }

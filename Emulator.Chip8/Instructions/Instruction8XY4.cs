@@ -3,14 +3,14 @@
     [Instruction(0x8004)]
     public class Instruction8XY4 : InstructionBase
     {
-        public Instruction8XY4(Chip8 chip8) : base(chip8)
+        public Instruction8XY4(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.V[0xF] = (byte) (Chip8.Vx + Chip8.Vy > 255 ? 1 : 0);
-            Chip8.Vx += Chip8.Vy;
+            Vf = (byte) (Vx + Vy > 255 ? 1 : 0);
+            Vx += Vy;
         }
     }
 }

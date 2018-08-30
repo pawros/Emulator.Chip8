@@ -3,15 +3,15 @@
     [Instruction(0x4000)]
     public class Instruction4XNN : InstructionBase
     {
-        public Instruction4XNN(Chip8 chip8) : base(chip8)
+        public Instruction4XNN(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            if (Chip8.Vx != Chip8.NN)
+            if (Vx != NN)
             {
-                Chip8.IncrementProgramCounter();
+                Interpreter.ProgramCounter += 2;
             }
         }
     }

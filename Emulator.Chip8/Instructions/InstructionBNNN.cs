@@ -3,13 +3,13 @@
     [Instruction(0xB000)]
     public class InstructionBNNN : InstructionBase
     {
-        public InstructionBNNN(Chip8 chip8) : base(chip8)
+        public InstructionBNNN(Interpreter interpreter) : base(interpreter)
         {
         }
 
         public override void Execute()
         {
-            Chip8.ProgramCounter = (ushort)(Chip8.V[0x0] + Chip8.NNN);
+            Interpreter.ProgramCounter = (ushort)(V0 + NNN);
         }
     }
 }

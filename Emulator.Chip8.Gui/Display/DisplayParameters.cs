@@ -15,6 +15,7 @@ namespace Emulator.Chip8.Gui.Display
         {
             Width = 64;
             Height = 32;
+            Size = Width * Height;
             Scale = 10;
             BackgroundColor = Color.FromArgb(202, 220, 159);
             ForegroundColor = Color.FromArgb(15, 56, 15);
