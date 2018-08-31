@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Emulator.Chip8.Gui.ViewModels;
+﻿using System.Windows;
 
 namespace Emulator.Chip8.Gui.Views
 {
@@ -23,11 +10,6 @@ namespace Emulator.Chip8.Gui.Views
         public EmulatorView()
         {
             InitializeComponent();
-            
-            var emulatorViewModel = new EmulatorViewModel();
-            this.DataContext = emulatorViewModel;
-
-            Host.Child = emulatorViewModel.EmulatorDisplayControl;
         }
     }
 }

@@ -4,6 +4,7 @@ using OpenTK.Graphics;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenTK.Input;
 
 namespace Emulator.Chip8.Gui.ViewModels
 {
@@ -11,65 +12,74 @@ namespace Emulator.Chip8.Gui.ViewModels
     {
         private Interpreter interpreter;
         private Task interpreterTask;
+        private Task renderWindowTask;
         private Renderer renderer;
 
-        public GLControl EmulatorDisplayControl { get; private set; }
-
+        private GameWindow renderWindow;
+        
         public string Opcode
         {
             get => Get<string>();
             set => Set(value);
         }
 
-        public byte[] Memory => new byte[] { 2, 5, 51, 21, 6, 2, 32, 1, 34, 5 };
-
-
         public EmulatorViewModel()
         {
-            InitializeDisplayControl();
-
             renderer = new Renderer(new DisplayParameters());
             interpreter = new Interpreter();
             interpreter.LoadRom("SpaceInvaders.ch8");
-
+            
             interpreterTask = Task.Factory.StartNew(RunEmulator);
+            renderWindowTask = Task.Factory.StartNew(RunRenderWindow);
         }
-
-        private void InitializeDisplayControl()
-        {
-            EmulatorDisplayControl = new GLControl(new GraphicsMode(32, 64), 2, 0, GraphicsContextFlags.Default);
-            EmulatorDisplayControl.Dock = DockStyle.Fill;
-            EmulatorDisplayControl.Load += OnLoad;
-            EmulatorDisplayControl.Paint += OnPaint;
-        }
-
-        private void OnLoad(object sender, EventArgs args)
-        {
-            EmulatorDisplayControl.MakeCurrent();
-            renderer.SetupScene();
-        }
-
-        private void OnPaint(object sender, PaintEventArgs args)
-        {
-            renderer.ClearScene();
-            renderer.RenderScene(interpreter.Graphics.GetVideoMemory());
-            EmulatorDisplayControl.SwapBuffers();
-        }
-
-        private async void RunEmulator()
+        
+        private void RunEmulator()
         {
             while (true)
             {
                 interpreter.ExecuteCycle();
-                if (interpreter.DrawFlag)
-                {
-                    interpreter.DrawFlag = false;
-                    EmulatorDisplayControl.Invalidate();
-                }
-
                 Update();
-                await Task.Delay(1);
             }
+        }
+
+        private void RunRenderWindow()
+        {
+            renderWindow = new GameWindow(640, 320);
+            renderWindow.Load += RenderWindowOnLoad;
+            renderWindow.UpdateFrame += RenderWindowOnUpdateFrame;
+            renderWindow.RenderFrame += RenderWindowOnRenderFrame;
+
+            renderWindow.KeyDown += RenderWindowOnKeyDown;
+            renderWindow.KeyUp += RenderWindowOnKeyUp;
+
+            renderWindow.Run(1.0 / 60.0);
+        }
+        
+        private void RenderWindowOnKeyDown(object sender, KeyboardKeyEventArgs e)
+        {
+            interpreter.Input.SetKey(KeyMapping.Mapping[e.Key], true);
+        }
+
+        private void RenderWindowOnKeyUp(object sender, KeyboardKeyEventArgs e)
+        {
+            interpreter.Input.SetKey(KeyMapping.Mapping[e.Key], false);
+        }
+
+        private void RenderWindowOnLoad(object sender, EventArgs e)
+        {
+            renderWindow.MakeCurrent();
+            renderer.SetupScene();
+        }
+
+        private void RenderWindowOnUpdateFrame(object sender, FrameEventArgs e)
+        {
+        }
+
+        private void RenderWindowOnRenderFrame(object sender, FrameEventArgs e)
+        {
+            renderer.ClearScene();
+            renderer.RenderScene(interpreter.Graphics.GetVideoMemory());
+            renderWindow.SwapBuffers();
         }
 
         private void Update()

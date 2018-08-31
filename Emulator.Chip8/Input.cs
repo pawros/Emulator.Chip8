@@ -8,5 +8,10 @@
         {
             Keys = new bool[16];
         }
+
+        public void SetKey(byte index, bool state)
+        {
+            Keys[index] = state;
+        }
     }
 }
