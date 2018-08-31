@@ -1,10 +1,9 @@
 ﻿using Emulator.Chip8.Gui.Display;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using OpenTK;
 using OpenTK.Graphics;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Emulator.Chip8.Gui.ViewModels
 {
@@ -22,6 +21,9 @@ namespace Emulator.Chip8.Gui.ViewModels
             set => Set(value);
         }
 
+        public byte[] Memory => new byte[] { 2, 5, 51, 21, 6, 2, 32, 1, 34, 5 };
+
+
         public EmulatorViewModel()
         {
             InitializeDisplayControl();
@@ -29,6 +31,7 @@ namespace Emulator.Chip8.Gui.ViewModels
             renderer = new Renderer(new DisplayParameters());
             interpreter = new Interpreter();
             interpreter.LoadRom("SpaceInvaders.ch8");
+
             interpreterTask = Task.Factory.StartNew(RunEmulator);
         }
 
@@ -65,7 +68,7 @@ namespace Emulator.Chip8.Gui.ViewModels
                 }
 
                 Update();
-                await Task.Delay(0);
+                await Task.Delay(1);
             }
         }
 

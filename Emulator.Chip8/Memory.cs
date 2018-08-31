@@ -13,6 +13,11 @@ namespace Emulator.Chip8
             set => memoryArray[i] = value;
         }
 
+        public byte[] GetMemory()
+        {
+            return memoryArray;
+        }
+
         public byte[] GetDrawData(byte n, ushort i)
         {
             var drawData = new byte[n];
