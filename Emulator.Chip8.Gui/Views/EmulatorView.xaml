@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Emulator.Chip8.Gui.ViewModels"
         Title="Emulator"
-        Width="800"
-        Height="450"
+        Width="400"
+        Height="400"
         d:DataContext="{d:DesignInstance viewModels:EmulatorViewModel}"
         Style="{DynamicResource Style.Emulator.Window}"
         mc:Ignorable="d"
@@ -14,21 +14,58 @@
     <Window.DataContext>
         <viewModels:EmulatorViewModel />
     </Window.DataContext>
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="640" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="320" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Grid.Column="1"
-                   Style="{DynamicResource Style.Emulator.TextBlock}"
-                   Text="{Binding Opcode}"
-                   />
+        <Border Grid.Row="0"
+                Grid.Column="0"
+                Padding="5"
+                BorderBrush="#465561"
+                BorderThickness="2"
+                >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Margin="8"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Style="{DynamicResource Style.Emulator.TextBlock}"
+                           Text="{Binding ClockSpeed}"
+                           />
+
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Command="{Binding DecreaseSpeed}"
+                        Content="SPEED -"
+                        Style="{DynamicResource Style.Emulator.Button}"
+                        />
+                <Button Grid.Row="1"
+                        Grid.Column="2"
+                        Command="{Binding IncreaseSpeed}"
+                        Content="SPEED +"
+                        Style="{DynamicResource Style.Emulator.Button}"
+                        />
+            </Grid>
+        </Border>
 
     </Grid>
 </Window>

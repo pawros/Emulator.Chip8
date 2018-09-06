@@ -10,8 +10,10 @@ namespace Emulator.Chip8.Gui.ViewModels
 {
     public class EmulatorViewModel : ObservableObject
     {
+        private const double FramesPerSecond = 60.0;
+
         private Interpreter interpreter;
-        private Task interpreterTask;
+        //private Task interpreterTask;
         private Task renderWindowTask;
         private Renderer renderer;
 
@@ -23,16 +25,46 @@ namespace Emulator.Chip8.Gui.ViewModels
             set => Set(value);
         }
 
+        public int ClockSpeed
+        {
+            get => Get<int>();
+            set => Set(value);
+        }
+
+        public UiCommand NextCycle { get; }
+
+        public UiCommand IncreaseSpeed { get; }
+        public UiCommand DecreaseSpeed { get; }
+
         public EmulatorViewModel()
         {
+
             renderer = new Renderer(new DisplayParameters());
             interpreter = new Interpreter();
             interpreter.LoadRom("SpaceInvaders.ch8");
-            
-            interpreterTask = Task.Factory.StartNew(RunEmulator);
+
+            ClockSpeed = 600;
+
+            //interpreterTask = Task.Factory.StartNew(RunEmulator);
             renderWindowTask = Task.Factory.StartNew(RunRenderWindow);
+
+            NextCycle = new UiCommand(() =>
+            {
+                interpreter.ExecuteCycle();
+                Update();
+            });
+
+            IncreaseSpeed = new UiCommand(() =>
+            {
+                ClockSpeed += 50;
+            });
+
+            DecreaseSpeed = new UiCommand(() =>
+            {
+                ClockSpeed -= 50;
+            });
         }
-        
+
         private void RunEmulator()
         {
             while (true)
@@ -52,7 +84,7 @@ namespace Emulator.Chip8.Gui.ViewModels
             renderWindow.KeyDown += RenderWindowOnKeyDown;
             renderWindow.KeyUp += RenderWindowOnKeyUp;
 
-            renderWindow.Run(1.0 / 60.0);
+            renderWindow.Run(1.0 / FramesPerSecond);
         }
         
         private void RenderWindowOnKeyDown(object sender, KeyboardKeyEventArgs e)
@@ -73,6 +105,13 @@ namespace Emulator.Chip8.Gui.ViewModels
 
         private void RenderWindowOnUpdateFrame(object sender, FrameEventArgs e)
         {
+            var cycles = 0;
+            while (cycles < ClockSpeed / FramesPerSecond)
+            {
+                interpreter.ExecuteCycle();
+                Update();
+                cycles++;
+            }
         }
 
         private void RenderWindowOnRenderFrame(object sender, FrameEventArgs e)
