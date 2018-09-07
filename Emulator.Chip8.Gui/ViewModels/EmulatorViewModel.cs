@@ -84,7 +84,7 @@ namespace Emulator.Chip8.Gui.ViewModels
             renderWindow.KeyDown += RenderWindowOnKeyDown;
             renderWindow.KeyUp += RenderWindowOnKeyUp;
 
-            renderWindow.Run(1.0 / FramesPerSecond);
+            //renderWindow.Run(1.0 / FramesPerSecond);
         }
         
         private void RenderWindowOnKeyDown(object sender, KeyboardKeyEventArgs e)
