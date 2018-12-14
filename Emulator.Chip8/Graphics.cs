@@ -9,20 +9,15 @@ namespace Emulator.Chip8
         private const int Width = 64;
         private const int Height = 32;
 
-        private readonly byte[] videoMemoryArray = new byte[Width * Height];
+        public byte[] VideoMemory { get; } = new byte[Width * Height];
 
         public byte this[int i]
         {
-            get => videoMemoryArray[i];
-            set => videoMemoryArray[i] = value;
+            get => VideoMemory[i];
+            set => VideoMemory[i] = value;
         }
 
         public byte IsCollision { get; private set; }
-
-        public byte[] GetVideoMemory()
-        {
-            return videoMemoryArray;
-        }
 
         public void Draw(byte x, byte y, byte[] drawData)
         {
@@ -35,14 +30,14 @@ namespace Emulator.Chip8
                     if ((drawData[line] & (0x80 >> pixel)) != 0)
                     {
                         var offset = (y + line) * Width + x + pixel;
-                        if (offset < videoMemoryArray.Length)
+                        if (offset < VideoMemory.Length)
                         {
-                            if (videoMemoryArray[offset] == 1)
+                            if (VideoMemory[offset] == 1)
                             {
                                 IsCollision = 0x1;
                             }
 
-                            videoMemoryArray[offset] ^= 1;
+                            VideoMemory[offset] ^= 1;
                         }
                     }
                 }
@@ -51,7 +46,7 @@ namespace Emulator.Chip8
 
         public void Clear()
         {
-            Array.Clear(videoMemoryArray, 0, Width * Height);
+            Array.Clear(VideoMemory, 0, Width * Height);
         }
     }
 }

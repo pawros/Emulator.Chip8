@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
     </Reference>
@@ -65,7 +68,7 @@
     </ApplicationDefinition>
     <Compile Include="Styles\Helpers\MarginSetter.cs" />
     <Compile Include="ViewModels\EmulatorViewModel.cs" />
-    <Compile Include="ViewModels\ObservableObject.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\UiCommand.cs" />
     <Compile Include="Views\EmulatorView.xaml.cs">
       <DependentUpon>EmulatorView.xaml</DependentUpon>
@@ -77,10 +80,6 @@
     <Compile Include="Display\DisplayParameters.cs" />
     <Compile Include="Display\Renderer.cs" />
     <Compile Include="KeyMapping.cs" />
-    <Page Include="Styles\EmulatorStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\EmulatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

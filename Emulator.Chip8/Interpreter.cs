@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace Emulator.Chip8
@@ -29,16 +28,20 @@ namespace Emulator.Chip8
         public bool IsHalted { get; set; }
         public bool DrawFlag { get; set; }
 
-        public Interpreter()
+        public Interpreter(
+            Register register,
+            Memory memory,
+            Graphics graphics,
+            Input input)
         {
             ProgramCounter = 0x200;
             Opcode = 0x0;
             Stack = new Stack<ushort>();
 
-            Register = new Register();
-            Memory = new Memory();
-            Graphics = new Graphics();
-            Input = new Input();
+            Register = register;
+            Memory = memory;
+            Graphics = graphics;
+            Input = input;
 
             InitializeInstructions();
             InitializeTimer();

@@ -8,14 +8,14 @@ using OpenTK.Input;
 
 namespace Emulator.Chip8.Gui.ViewModels
 {
-    public class EmulatorViewModel : ObservableObject
+    public class EmulatorViewModel : BaseViewModel
     {
         private const double FramesPerSecond = 60.0;
 
-        private Interpreter interpreter;
+        private readonly Interpreter interpreter;
         //private Task interpreterTask;
         private Task renderWindowTask;
-        private Renderer renderer;
+        private readonly Renderer renderer;
 
         private GameWindow renderWindow;
         
@@ -36,12 +36,12 @@ namespace Emulator.Chip8.Gui.ViewModels
         public UiCommand IncreaseSpeed { get; }
         public UiCommand DecreaseSpeed { get; }
 
-        public EmulatorViewModel()
+        public EmulatorViewModel(Interpreter interpreter)
         {
 
             renderer = new Renderer(new DisplayParameters());
-            interpreter = new Interpreter();
-            interpreter.LoadRom("SpaceInvaders.ch8");
+            this.interpreter = interpreter;
+            this.interpreter.LoadRom("SpaceInvaders.ch8");
 
             ClockSpeed = 600;
 
@@ -84,7 +84,7 @@ namespace Emulator.Chip8.Gui.ViewModels
             renderWindow.KeyDown += RenderWindowOnKeyDown;
             renderWindow.KeyUp += RenderWindowOnKeyUp;
 
-            //renderWindow.Run(1.0 / FramesPerSecond);
+            renderWindow.Run(1.0 / FramesPerSecond);
         }
         
         private void RenderWindowOnKeyDown(object sender, KeyboardKeyEventArgs e)
@@ -117,7 +117,7 @@ namespace Emulator.Chip8.Gui.ViewModels
         private void RenderWindowOnRenderFrame(object sender, FrameEventArgs e)
         {
             renderer.ClearScene();
-            renderer.RenderScene(interpreter.Graphics.GetVideoMemory());
+            renderer.RenderScene(interpreter.Graphics.VideoMemory);
             renderWindow.SwapBuffers();
         }
 

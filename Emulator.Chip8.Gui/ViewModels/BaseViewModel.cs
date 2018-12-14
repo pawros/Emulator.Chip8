@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 
 namespace Emulator.Chip8.Gui.ViewModels
 {
-    public abstract class ObservableObject : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
-        private Dictionary<string, object> properties = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> properties = new Dictionary<string, object>();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
