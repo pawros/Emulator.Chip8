@@ -55,6 +55,7 @@
     <Compile Include="Instructions\InstructionBase.cs" />
     <Compile Include="Instructions\InstructionBNNN.cs" />
     <Compile Include="Instructions\InstructionCXNN.cs" />
+    <Compile Include="InstructionExecutor.cs" />
     <Compile Include="Instructions\InstructionFX0A.cs" />
     <Compile Include="Instructions\Instruction00E0.cs" />
     <Compile Include="Instructions\Instruction00EE.cs" />

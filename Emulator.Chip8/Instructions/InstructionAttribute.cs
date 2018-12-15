@@ -2,7 +2,7 @@
 
 namespace Emulator.Chip8.Instructions
 {
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Method)]
     public class InstructionAttribute : Attribute
     {
         public InstructionAttribute(ushort opcodeKey)

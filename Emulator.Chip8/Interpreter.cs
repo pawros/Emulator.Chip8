@@ -13,6 +13,8 @@ namespace Emulator.Chip8
         private Dictionary<ushort, Action> instructions;
         private readonly Timer timer = new Timer(16);
 
+        private InstructionExecutor instructionExecutor;
+
         public ushort ProgramCounter;
         public ushort Opcode { get; private set; }
         public Stack<ushort> Stack { get; }
@@ -29,11 +31,14 @@ namespace Emulator.Chip8
         public bool DrawFlag { get; set; }
 
         public Interpreter(
+            InstructionExecutor instructionExecutor,
             Register register,
             Memory memory,
             Graphics graphics,
             Input input)
         {
+            this.instructionExecutor = instructionExecutor;
+
             ProgramCounter = 0x200;
             Opcode = 0x0;
             Stack = new Stack<ushort>();

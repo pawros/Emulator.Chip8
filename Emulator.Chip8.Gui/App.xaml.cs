@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Emulator.Chip8.Gui.ViewModels;
 using Emulator.Chip8.Gui.Views;
+using Emulator.Chip8.Instructions;
 using System.Reflection;
 using System.Windows;
 
@@ -23,6 +24,7 @@ namespace Emulator.Chip8.Gui
 
             Container = builder.Build();
 
+            var ie = Container.Resolve<InstructionExecutor>();
             var interpreter = Container.Resolve<Interpreter>();
             var window = new EmulatorView { DataContext = new EmulatorViewModel(interpreter) };
             window.Show();
