@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,43 +51,9 @@
     <Compile Include="Graphics.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Instructions\IInstruction.cs" />
-    <Compile Include="Instructions\Instruction8XY1.cs" />
-    <Compile Include="Instructions\Instruction8XY7.cs" />
-    <Compile Include="Instructions\Instruction8XYE.cs" />
-    <Compile Include="Instructions\Instruction9XY0.cs" />
-    <Compile Include="Instructions\InstructionBase.cs" />
-    <Compile Include="Instructions\InstructionBNNN.cs" />
-    <Compile Include="Instructions\InstructionCXNN.cs" />
-    <Compile Include="InstructionExecutor.cs" />
-    <Compile Include="Instructions\InstructionFX0A.cs" />
-    <Compile Include="Instructions\Instruction00E0.cs" />
-    <Compile Include="Instructions\Instruction00EE.cs" />
-    <Compile Include="Instructions\Instruction0NNN.cs" />
-    <Compile Include="Instructions\Instruction1NNN.cs" />
-    <Compile Include="Instructions\Instruction2NNN.cs" />
-    <Compile Include="Instructions\Instruction3XNN.cs" />
-    <Compile Include="Instructions\Instruction4XNN.cs" />
-    <Compile Include="Instructions\InstructionAttribute.cs" />
-    <Compile Include="Instructions\Instruction5XY0.cs" />
-    <Compile Include="Instructions\Instruction6XNN.cs" />
-    <Compile Include="Instructions\Instruction7XNN.cs" />
-    <Compile Include="Instructions\Instruction8XY3.cs" />
-    <Compile Include="Instructions\Instruction8XY4.cs" />
-    <Compile Include="Instructions\Instruction8XY5.cs" />
-    <Compile Include="Instructions\Instruction8XY6.cs" />
-    <Compile Include="Instructions\Instruction8XY0.cs" />
-    <Compile Include="Instructions\Instruction8XY2.cs" />
-    <Compile Include="Instructions\InstructionANNN.cs" />
-    <Compile Include="Instructions\InstructionDXYN.cs" />
-    <Compile Include="Instructions\InstructionEX9E.cs" />
-    <Compile Include="Instructions\InstructionEXA1.cs" />
-    <Compile Include="Instructions\InstructionFX07.cs" />
-    <Compile Include="Instructions\InstructionFX15.cs" />
-    <Compile Include="Instructions\InstructionFX18.cs" />
-    <Compile Include="Instructions\InstructionFX1E.cs" />
-    <Compile Include="Instructions\InstructionFX29.cs" />
-    <Compile Include="Instructions\InstructionFX65.cs" />
     <Compile Include="Interpreter.cs" />
+    <Compile Include="Instructions\InstructionAttribute.cs" />
+    <Compile Include="KeyMapping.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="OpcodeHelper.cs" />
@@ -92,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

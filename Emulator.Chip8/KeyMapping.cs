@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OpenTK.Input;
 
-namespace Emulator.Chip8.Gui
+namespace Emulator.Chip8
 {
     public static class KeyMapping
     {

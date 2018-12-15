@@ -13,7 +13,6 @@ namespace Emulator.Chip8.Gui.ViewModels
         private const double FramesPerSecond = 60.0;
 
         private readonly Interpreter interpreter;
-        //private Task interpreterTask;
         private Task renderWindowTask;
         private readonly Renderer renderer;
 
@@ -38,14 +37,12 @@ namespace Emulator.Chip8.Gui.ViewModels
 
         public EmulatorViewModel(Interpreter interpreter)
         {
-
             renderer = new Renderer(new DisplayParameters());
             this.interpreter = interpreter;
             this.interpreter.LoadRom("SpaceInvaders.ch8");
 
             ClockSpeed = 600;
 
-            //interpreterTask = Task.Factory.StartNew(RunEmulator);
             renderWindowTask = Task.Factory.StartNew(RunRenderWindow);
 
             NextCycle = new UiCommand(() =>
@@ -89,12 +86,12 @@ namespace Emulator.Chip8.Gui.ViewModels
         
         private void RenderWindowOnKeyDown(object sender, KeyboardKeyEventArgs e)
         {
-            interpreter.Input.SetKey(KeyMapping.Mapping[e.Key], true);
+            interpreter.SetKeyDown(e.Key);
         }
 
         private void RenderWindowOnKeyUp(object sender, KeyboardKeyEventArgs e)
         {
-            interpreter.Input.SetKey(KeyMapping.Mapping[e.Key], false);
+            interpreter.SetKeyUp(e.Key);
         }
 
         private void RenderWindowOnLoad(object sender, EventArgs e)
@@ -117,7 +114,7 @@ namespace Emulator.Chip8.Gui.ViewModels
         private void RenderWindowOnRenderFrame(object sender, FrameEventArgs e)
         {
             renderer.ClearScene();
-            renderer.RenderScene(interpreter.Graphics.VideoMemory);
+            renderer.RenderScene(interpreter.VideoMemory);
             renderWindow.SwapBuffers();
         }
 

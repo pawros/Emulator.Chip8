@@ -79,7 +79,6 @@
     </Compile>
     <Compile Include="Display\DisplayParameters.cs" />
     <Compile Include="Display\Renderer.cs" />
-    <Compile Include="KeyMapping.cs" />
     <Page Include="Views\EmulatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
