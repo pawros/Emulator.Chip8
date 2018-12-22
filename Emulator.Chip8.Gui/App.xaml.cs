@@ -18,13 +18,13 @@ namespace Emulator.Chip8.Gui
         {
             var assembly = Assembly.Load("Emulator.Chip8");
             var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(assembly).SingleInstance().AsSelf();
+            builder.RegisterAssemblyTypes(assembly).SingleInstance().AsImplementedInterfaces();
 
             base.OnStartup(e);
 
             Container = builder.Build();
 
-            var interpreter = Container.Resolve<Interpreter>();
+            var interpreter = Container.Resolve<IInterpreter>();
             var window = new EmulatorView { DataContext = new EmulatorViewModel(interpreter) };
             window.Show();
         }

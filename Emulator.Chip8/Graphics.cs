@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Emulator.Chip8
 {
-    public class Graphics
+    public class Graphics : IGraphics
     {
         private const int Width = 64;
         private const int Height = 32;

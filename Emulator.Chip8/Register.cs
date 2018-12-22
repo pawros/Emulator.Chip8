@@ -1,6 +1,6 @@
 ﻿namespace Emulator.Chip8
 {
-    public class Register
+    public class Register : IRegister
     {
         public ushort I { get; set; }
         public byte[] V { get; }

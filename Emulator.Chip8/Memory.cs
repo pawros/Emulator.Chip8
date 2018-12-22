@@ -2,7 +2,7 @@
 
 namespace Emulator.Chip8
 {
-    public class Memory
+    public class Memory : IMemory
     {
         private const int MemorySize = 4096;
         private readonly byte[] memoryArray = new byte[MemorySize];

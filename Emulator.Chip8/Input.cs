@@ -1,6 +1,6 @@
 ﻿namespace Emulator.Chip8
 {
-    public class Input
+    public class Input : IInput
     {
         public bool[] Keys { get; }
 

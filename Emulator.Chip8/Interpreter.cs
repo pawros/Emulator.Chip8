@@ -9,7 +9,7 @@ using OpenTK.Input;
 
 namespace Emulator.Chip8
 {
-    public class Interpreter
+    public class Interpreter : IInterpreter
     {
         private IDictionary<ushort, Action> instructions;
 
@@ -17,10 +17,11 @@ namespace Emulator.Chip8
 
         private readonly Random random = new Random();
 
-        private readonly Register register;
-        private readonly Memory memory;
-        private readonly Graphics graphics;
-        private readonly Input input;
+        private readonly IRegister register;
+        private readonly IMemory memory;
+        private readonly IGraphics graphics;
+        private readonly IInput input;
+        private readonly IFileWrapper fileWrapper;
 
         private ushort programCounter;
         private ushort opcode;
@@ -37,40 +38,42 @@ namespace Emulator.Chip8
 
         #region Register aliases
 
-        private byte N => (byte)(opcode & 0xF);
-        private byte NN => (byte)(opcode & 0xFF);
-        private ushort NNN => (ushort)(opcode & 0xFFF);
+        public byte N => (byte)(opcode & 0xF);
+        public byte NN => (byte)(opcode & 0xFF);
+        public ushort NNN => (ushort)(opcode & 0xFFF);
 
-        private byte X => (byte)(opcode >> 8 & 0xF);
-        private byte Y => (byte)(opcode >> 4 & 0xF);
+        public byte X => (byte)(opcode >> 8 & 0xF);
+        public byte Y => (byte)(opcode >> 4 & 0xF);
 
-        private byte Vx
+        public byte Vx
         {
             get => register.V[X];
-            set => register.V[X] = value;
+            private set => register.V[X] = value;
         }
 
-        private byte Vy
+        public byte Vy
         {
             get => register.V[Y];
-            set => register.V[Y] = value;
+            private set => register.V[Y] = value;
         }
 
-        private byte V0
+        public byte V0
         {
             get => register.V[0x0];
-            set => register.V[0x0] = value;
+            private set => register.V[0x0] = value;
         }
 
-        private byte Vf
+        public byte Vf
         {
             get => register.V[0xF];
-            set => register.V[0xF] = value;
+            private set => register.V[0xF] = value;
         }
 
         #endregion
 
         #region Public properties
+
+        public ushort ProgramCounter => programCounter;
 
         public ushort Opcode => opcode;
 
@@ -79,16 +82,19 @@ namespace Emulator.Chip8
         #endregion
         
         public Interpreter(
-            Register register,
-            Memory memory,
-            Graphics graphics,
-            Input input)
+            IRegister register,
+            IMemory memory,
+            IGraphics graphics,
+            IInput input,
+            IFileWrapper fileWrapper
+            )
         {
             this.register = register;
             this.memory = memory;
             this.graphics = graphics;
             this.input = input;
-
+            this.fileWrapper = fileWrapper;
+            
             Initialize();
             InitializeInstructions();
             InitializeTimer();
@@ -116,7 +122,7 @@ namespace Emulator.Chip8
 
         public void LoadRom(string path)
         {
-            var rom = File.ReadAllBytes(path);
+            var rom = fileWrapper.ReadBytes(path);
             memory.LoadRom(rom);
         }
 

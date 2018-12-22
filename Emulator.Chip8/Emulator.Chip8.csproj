@@ -48,11 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileWrapper.cs" />
     <Compile Include="Graphics.cs" />
+    <Compile Include="IFileWrapper.cs" />
+    <Compile Include="IGraphics.cs" />
+    <Compile Include="IInput.cs" />
+    <Compile Include="IInterpreter.cs" />
+    <Compile Include="IMemory.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Instructions\IInstruction.cs" />
     <Compile Include="Interpreter.cs" />
     <Compile Include="Instructions\InstructionAttribute.cs" />
+    <Compile Include="IRegister.cs" />
     <Compile Include="KeyMapping.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Register.cs" />

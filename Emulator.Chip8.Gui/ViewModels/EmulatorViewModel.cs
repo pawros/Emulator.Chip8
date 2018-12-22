@@ -12,7 +12,7 @@ namespace Emulator.Chip8.Gui.ViewModels
     {
         private const double FramesPerSecond = 60.0;
 
-        private readonly Interpreter interpreter;
+        private readonly IInterpreter interpreter;
         private Task renderWindowTask;
         private readonly Renderer renderer;
 
@@ -35,7 +35,7 @@ namespace Emulator.Chip8.Gui.ViewModels
         public UiCommand IncreaseSpeed { get; }
         public UiCommand DecreaseSpeed { get; }
 
-        public EmulatorViewModel(Interpreter interpreter)
+        public EmulatorViewModel(IInterpreter interpreter)
         {
             renderer = new Renderer(new DisplayParameters());
             this.interpreter = interpreter;
